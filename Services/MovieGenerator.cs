@@ -25,11 +25,11 @@ public class MovieGenerator : IMovieGenerator
 
         var year = movieRandom.Next(1975, 2026);
 
-        var adj = resource.MovieTitlesResource.Adjectives[
-            movieRandom.Next(resource.MovieTitlesResource.Adjectives.Count)
+        var adj = resource.MovieTitles.Adjectives[
+            movieRandom.Next(resource.MovieTitles.Adjectives.Count)
         ];
-        var noun = resource.MovieTitlesResource.Nouns[
-            movieRandom.Next(resource.MovieTitlesResource.Nouns.Count)
+        var noun = resource.MovieTitles.Nouns[
+            movieRandom.Next(resource.MovieTitles.Nouns.Count)
         ];
 
         var title = $"{adj} {noun}";

@@ -16,5 +16,5 @@ public record MovieQueryParameters
     [Range(0, 10)]
     public double Reviews { get; init; } = 3.0;
 
-    public string Locale { get; init; } = "en_US";
+    public string Locale { get; init; } = "en-US";
 }

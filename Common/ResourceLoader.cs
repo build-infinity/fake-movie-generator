@@ -3,7 +3,8 @@ using System.Text.Json;
 public class LocalResource
 {
     public string FakerLocale { get; set; } = null!;
-    public MovieTitlesResource MovieTitlesResource { get; set;} = new ();
+
+    public MovieTitlesResource MovieTitles { get; set;} = new ();
     public List<string> Genres { get; set; } = [];
     public List<string> Reviews { get; set; } = [];
     public List<string> TrailerTexts { get; set; } = [];
@@ -23,6 +24,9 @@ public static class ResourceLoader
 
         var json = File.ReadAllText(path);
 
-        return JsonSerializer.Deserialize<LocalResource>(json)?? throw new InvalidOperationException("Locale resource not found");
+        return JsonSerializer.Deserialize<LocalResource>(
+            json,
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true }
+        ) ?? throw new InvalidOperationException("Locale resource not found");
     }
 }
