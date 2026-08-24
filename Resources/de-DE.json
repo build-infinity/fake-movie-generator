@@ -31,5 +31,30 @@
     "Fantasy",
     "Abenteuer",
     "Mystery"
+  ],
+  "reviews": [
+    "Der Film war von Anfang bis Ende unterhaltsam.",
+    "Die Schauspieler haben starke und überzeugende Leistungen gezeigt.",
+    "Die Geschichte war interessant, obwohl einige Szenen etwas langsam wirkten.",
+    "Die Atmosphäre und der visuelle Stil des Films haben mir sehr gefallen.",
+    "Das Ende hat mich überrascht und den Film besonders einprägsam gemacht.",
+    "Die Charaktere waren interessant und wirkten sehr glaubwürdig.",
+    "Der Film hatte einige großartige Momente, aber das Tempo hätte besser sein können.",
+    "Ich hatte mehr von der Geschichte erwartet, aber die schauspielerische Leistung war trotzdem gut.",
+    "Es war ein unterhaltsamer Film mit einer guten Mischung aus Drama und Spannung.",
+    "Insgesamt hat mir der Film gefallen und ich würde ihn wahrscheinlich noch einmal ansehen."
+  ],
+  
+  "trailerTexts": [
+    "DIESEN HERBST",
+    "BALD IM KINO",
+    "NUR IM KINO",
+    "DIE GESCHICHTE BEGINNT",
+    "JEDES GEHEIMNIS HAT SEINEN PREIS",
+    "NICHTS IST, WIE ES SCHEINT",
+    "DIE WAHRHEIT WIRD ENTHÜLLT",
+    "EINE ENTSCHEIDUNG VERÄNDERT ALLES",
+    "DIE REISE BEGINNT",
+    "MACH DICH BEREIT"
   ]
 }

@@ -1,1 +1,9 @@
-public record MovieDto(string Title, IEnumerable<string> Actors, string Genre, int Year, int Likes, int Reviews);
+public record MovieDto(
+    string Title, 
+    IEnumerable<string> Actors,
+    string Genre, 
+    int Year, 
+    int Likes, 
+    int ReviewCount,
+    IEnumerable<string> Reviews,
+    TrailerConfig TrailerConfig);

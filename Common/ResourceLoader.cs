@@ -5,6 +5,8 @@ public class LocalResource
     public string FakerLocale { get; set; } = null!;
     public MovieTitlesResource MovieTitlesResource { get; set;} = new ();
     public List<string> Genres { get; set; } = [];
+    public List<string> Reviews { get; set; } = [];
+    public List<string> TrailerTexts { get; set; } = [];
 
 }
 public class MovieTitlesResource

@@ -1,2 +1,6 @@
 bin/
 obj/
+
+# Media
+*.mp3
+*.mp4

@@ -34,5 +34,32 @@
     "Fantasy",
     "Adventure",
     "Mystery"
+  ],
+  
+  "reviews": [
+    "The movie was entertaining from beginning to end.",
+    "The actors gave strong and convincing performances.",
+    "The story was interesting, although some scenes felt too slow.",
+    "I really enjoyed the atmosphere and visual style of this film.",
+    "The ending surprised me and made the movie more memorable.",
+    "The characters were interesting and easy to connect with.",
+    "The movie had some great moments, but the pacing could have been better.",
+    "I expected more from the story, but the acting was still enjoyable.",
+    "This was a fun movie with a good balance of drama and entertainment.",
+    "Overall, the film was enjoyable and I would probably watch it again."
+  ],
+  
+  "trailerTexts": [
+    "THIS FALL",
+    "COMING SOON",
+    "ONLY IN THEATERS",
+    "THE STORY BEGINS",
+    "EVERY SECRET HAS A PRICE",
+    "NOTHING IS WHAT IT SEEMS",
+    "THE TRUTH WILL BE REVEALED",
+    "ONE CHOICE CHANGES EVERYTHING",
+    "THE JOURNEY BEGINS",
+    "GET READY"
   ]
+
 }
