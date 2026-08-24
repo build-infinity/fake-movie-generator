@@ -1,0 +1,35 @@
+{
+  "fakerlocale" : "de",
+  
+  "movieTitles": {
+    "adjectives": [
+      "Stille",
+      "Dunkle",
+      "Verlorene",
+      "Verborgene",
+      "Letzte",
+      "Goldene"
+    ],
+
+    "nouns": [
+      "Nacht",
+      "Straße",
+      "Schatten",
+      "Welt",
+      "Reise",
+      "Sturm",
+      "Hoffnung"
+    ]
+  },
+
+  "genres": [
+    "Action",
+    "Drama",
+    "Komödie",
+    "Thriller",
+    "Horror",
+    "Fantasy",
+    "Abenteuer",
+    "Mystery"
+  ]
+}

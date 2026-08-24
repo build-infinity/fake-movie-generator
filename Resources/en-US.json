@@ -1,0 +1,38 @@
+{
+  "fakerlocale" : "en",
+  
+  "movieTitles": {
+    "adjectives": [
+      "Silent",
+      "Dark",
+      "Hidden",
+      "Lost",
+      "Broken",
+      "Last",
+      "Endless",
+      "Golden"
+    ],
+
+    "nouns": [
+      "Horizon",
+      "River",
+      "Shadow",
+      "Road",
+      "Kingdom",
+      "Night",
+      "Dream",
+      "Storm"
+    ]
+  },
+
+  "genres": [
+    "Action",
+    "Drama",
+    "Comedy",
+    "Thriller",
+    "Horror",
+    "Fantasy",
+    "Adventure",
+    "Mystery"
+  ]
+}

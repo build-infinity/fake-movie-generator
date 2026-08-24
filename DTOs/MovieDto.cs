@@ -1,1 +1,1 @@
-public record MovieDto(string Title, IEnumerable<string> Actors, string Genre, int Year, double Likes, double Reviews);
+public record MovieDto(string Title, IEnumerable<string> Actors, string Genre, int Year, int Likes, int Reviews);
