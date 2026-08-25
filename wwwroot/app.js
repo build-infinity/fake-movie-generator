@@ -7,7 +7,7 @@
   var state = {
     params: {
       userSeed: "123456789",
-      locale: "en-US",
+      locale: "",
       likes: 3,
       reviews: 3
     },
@@ -49,8 +49,35 @@
 
   var refreshTimer = 0;
   var galleryObserver = null;
+  var galleryPreviewObserver = null;
+  var uiConfig = {};
   var uiLocales = {};
   var uiText = {};
+
+  function firstConfiguredLocale() {
+    return Array.isArray(uiConfig.locales) && uiConfig.locales.length
+      ? String(uiConfig.locales[0].code || "")
+      : "";
+  }
+
+  function localeLabel(locale, displayLocale) {
+    var labels = locale.labels || {};
+    return labels[displayLocale] || labels[uiConfig.defaultLocale] || locale.code;
+  }
+
+  function renderLocaleOptions(selectedLocale) {
+    refs.locale.innerHTML = "";
+    (uiConfig.locales || []).forEach(function (locale) {
+      if (!locale || !locale.code) {
+        return;
+      }
+      var option = document.createElement("option");
+      option.value = locale.code;
+      option.textContent = localeLabel(locale, selectedLocale);
+      refs.locale.appendChild(option);
+    });
+    refs.locale.value = selectedLocale;
+  }
 
   function t(key, values) {
     var value = uiText[key] || key;
@@ -61,8 +88,9 @@
   }
 
   function applyUiLocale(locale) {
-    uiText = uiLocales[locale] || uiLocales["en-US"] || {};
+    uiText = uiLocales[locale] || uiLocales[uiConfig.defaultLocale] || uiLocales[firstConfiguredLocale()] || {};
     document.documentElement.lang = locale;
+    renderLocaleOptions(locale);
     document.title = t("pageTitle");
     Array.prototype.slice.call(document.querySelectorAll("[data-i18n]")).forEach(function (element) {
       element.textContent = t(element.getAttribute("data-i18n"));
@@ -82,11 +110,19 @@
       if (!response.ok) {
         throw new Error("Could not load UI translations.");
       }
-      uiLocales = await response.json();
+      uiConfig = await response.json();
+      uiLocales = uiConfig.translations || {};
+      state.params.locale = uiConfig.defaultLocale || firstConfiguredLocale();
+      if (!state.params.locale || !uiLocales[state.params.locale]) {
+        throw new Error("The UI locale configuration is incomplete.");
+      }
     } catch (error) {
+      refs.locale.disabled = true;
       uiLocales = {};
+      return false;
     }
     applyUiLocale(state.params.locale);
+    return true;
   }
 
   function escapeHtml(value) {
@@ -281,8 +317,11 @@
   function galleryCardMarkup(movie, absoluteIndex, arrayIndex) {
     var key = "gallery-" + state.galleryPage + "-" + arrayIndex;
     var cast = Array.isArray(movie.actors) ? movie.actors.join(", ") : "";
+    var previewClip = movie.trailer.clips.find(function (clip) { return clip.url; });
+    var previewUrl = previewClip ? previewClip.url : "";
     return '<article class="movie-card" data-card-key="' + key + '" data-movie-array-index="' + (absoluteIndex - 1) + '" tabindex="0" aria-label="' + escapeHtml(t("playTrailer", { title: movie.title })) + '">'
       + '<div class="card-poster">'
+      + '<div class="card-preview" data-preview-url="' + escapeHtml(previewUrl) + '" aria-hidden="true"></div>'
       + '<div class="card-trailer-host" data-trailer-key="gallery-preview-' + key + '" hidden></div>'
       + '<span class="card-number">FILM ' + String(absoluteIndex).padStart(3, "0") + "</span>"
       + "<h3>" + escapeHtml(movie.title) + "</h3>"
@@ -308,6 +347,59 @@
       fragment.appendChild(container.firstChild);
     }
     refs.gallery.appendChild(fragment);
+    observeGalleryPreviews();
+  }
+
+  function mountGalleryPreview(preview) {
+    var previewUrl = preview.getAttribute("data-preview-url");
+    if (!previewUrl || preview.hasAttribute("data-preview-loaded")) {
+      return;
+    }
+    preview.setAttribute("data-preview-loaded", "");
+    var video = document.createElement("video");
+    video.muted = true;
+    video.defaultMuted = true;
+    video.playsInline = true;
+    video.preload = "metadata";
+    video.tabIndex = -1;
+    video.setAttribute("aria-hidden", "true");
+
+    var reveal = function () {
+      preview.classList.add("is-ready");
+    };
+    video.addEventListener("loadedmetadata", function () {
+      if (!Number.isFinite(video.duration) || video.duration <= 0.35) {
+        reveal();
+        return;
+      }
+      try {
+        video.currentTime = 0.35;
+      } catch (error) {
+        reveal();
+      }
+    }, { once: true });
+    video.addEventListener("loadeddata", reveal, { once: true });
+    video.addEventListener("seeked", reveal, { once: true });
+    video.addEventListener("error", function () {
+      preview.removeAttribute("data-preview-loaded");
+    }, { once: true });
+    preview.appendChild(video);
+    video.src = previewUrl;
+    video.load();
+  }
+
+  function observeGalleryPreviews() {
+    Array.prototype.slice.call(refs.gallery.querySelectorAll(".card-preview[data-preview-url]:not([data-preview-observed])")).forEach(function (preview) {
+      if (!preview.getAttribute("data-preview-url")) {
+        return;
+      }
+      preview.setAttribute("data-preview-observed", "");
+      if (galleryPreviewObserver) {
+        galleryPreviewObserver.observe(preview);
+      } else {
+        mountGalleryPreview(preview);
+      }
+    });
   }
 
   function galleryDetailsMarkup(movie, key) {
@@ -341,7 +433,7 @@
       + '<video playsinline preload="metadata" aria-label="' + escapeHtml(t("trailerPreview", { title: movie.title })) + '"></video>'
       + '<audio preload="none"></audio>'
       + '<span class="trailer-state">' + escapeHtml(t("trailerReady")) + "</span>"
-      + '<div class="trailer-caption"><span>' + escapeHtml(text) + "</span></div>"
+      + '<div class="trailer-caption"><small class="trailer-title">' + escapeHtml(movie.title) + '</small><span>' + escapeHtml(text) + "</span></div>"
       + '<div class="trailer-controls">'
       + '<button type="button" class="trailer-control" data-trailer-action="play">▶ ' + escapeHtml(t("play")) + "</button>"
       + "</div>"
@@ -705,6 +797,9 @@
     clearError();
     if (reset) {
       refs.gallery.classList.add("is-updating");
+      if (galleryPreviewObserver) {
+        galleryPreviewObserver.disconnect();
+      }
     }
     refs.gallerySentinel.hidden = false;
     var nextPage = reset ? 1 : state.galleryPage + 1;
@@ -915,10 +1010,28 @@
     galleryObserver.observe(refs.gallerySentinel);
   }
 
+  function initialiseGalleryPreviews() {
+    if (!("IntersectionObserver" in window)) {
+      return;
+    }
+    galleryPreviewObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          galleryPreviewObserver.unobserve(entry.target);
+          mountGalleryPreview(entry.target);
+        }
+      });
+    }, { rootMargin: "220px 0px" });
+  }
+
   async function initialiseApp() {
-    await loadUiLocale();
+    if (!await loadUiLocale()) {
+      showError("Could not load the user interface configuration.");
+      return;
+    }
     updateControlReadouts();
     initialiseEvents();
+    initialiseGalleryPreviews();
     initialiseInfiniteScroll();
     refreshForParameters();
   }

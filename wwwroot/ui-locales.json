@@ -1,16 +1,29 @@
 {
-  "en-US": {
+  "defaultLocale": "en-US",
+  "locales": [
+    {
+      "code": "en-US",
+      "labels": {
+        "en-US": "English (USA)",
+        "de-DE": "Englisch (USA)"
+      }
+    },
+    {
+      "code": "de-DE",
+      "labels": {
+        "en-US": "German (Germany)",
+        "de-DE": "Deutsch (Deutschland)"
+      }
+    }
+  ],
+  "translations": {
+    "en-US": {
     "pageTitle": "Movie Generator",
-    "liveGenerator": "Live generator",
-    "heroLineOne": "Every seed tells",
-    "heroLineTwo": "a new story.",
     "movieSettings": "Movie settings",
     "displayMode": "Display mode",
     "table": "Table",
     "gallery": "Gallery",
     "languageRegion": "Language / region",
-    "localeEnUs": "English (USA)",
-    "localeDeDe": "German (Germany)",
     "seed": "Seed",
     "randomSeed": "Generate a random 48-bit seed",
     "seedHelp": "Custom seeds support up to 64-bit integers.",
@@ -74,18 +87,13 @@
     "filmsLoaded": "{count} films loaded · Scroll for more",
     "waitingSeed": "Waiting for a valid seed"
   },
-  "de-DE": {
+    "de-DE": {
     "pageTitle": "Film-Generator",
-    "liveGenerator": "Generator aktiv",
-    "heroLineOne": "Jeder Seed erzählt",
-    "heroLineTwo": "eine neue Geschichte.",
     "movieSettings": "Film-Einstellungen",
     "displayMode": "Ansichtsmodus",
     "table": "Tabelle",
     "gallery": "Galerie",
     "languageRegion": "Sprache / Region",
-    "localeEnUs": "Englisch (USA)",
-    "localeDeDe": "Deutsch (Deutschland)",
     "seed": "Seed",
     "randomSeed": "Zufälligen 48-Bit-Seed erzeugen",
     "seedHelp": "Benutzerdefinierte Seeds unterstützen bis zu 64-Bit-Ganzzahlen.",
@@ -148,5 +156,6 @@
     "catalogueUnavailable": "Katalog nicht verfügbar",
     "filmsLoaded": "{count} Filme geladen · Für mehr scrollen",
     "waitingSeed": "Warte auf einen gültigen Seed"
+    }
   }
 }

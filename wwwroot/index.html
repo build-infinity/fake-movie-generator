@@ -1,110 +1,100 @@
 <!doctype html>
-<html lang="en-US">
+<html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#06101e">
-  <title>Movie Generator</title>
-  <link rel="stylesheet" href="/app.css?v=5">
+  <title></title>
+  <link rel="stylesheet" href="/app.css?v=7">
 </head>
 <body>
   <div class="ambient ambient-one"></div>
   <div class="ambient ambient-two"></div>
 
-  <header class="app-header">
-    <div class="header-status"><i aria-hidden="true"></i><span data-i18n="liveGenerator">Live generator</span></div>
-  </header>
-
   <main class="page-shell">
-    <section class="hero" aria-labelledby="page-title">
-      <h1 id="page-title"><span data-i18n="heroLineOne">Every seed tells</span><br><em data-i18n="heroLineTwo">a new story.</em></h1>
-    </section>
-
-    <section class="control-panel" aria-label="Movie settings" data-i18n-aria="movieSettings">
+    <section class="control-panel" data-i18n-aria="movieSettings">
       <div class="panel-heading">
-        <div class="view-toggle" role="group" aria-label="Display mode" data-i18n-aria="displayMode">
+        <div class="view-toggle" role="group" data-i18n-aria="displayMode">
           <button type="button" class="view-button is-active" data-view="table" aria-pressed="true">
-            <span class="table-icon" aria-hidden="true"></span> <span data-i18n="table">Table</span>
+            <span class="table-icon" aria-hidden="true"></span> <span data-i18n="table"></span>
           </button>
           <button type="button" class="view-button" data-view="gallery" aria-pressed="false">
-            <span class="gallery-icon" aria-hidden="true"></span> <span data-i18n="gallery">Gallery</span>
+            <span class="gallery-icon" aria-hidden="true"></span> <span data-i18n="gallery"></span>
           </button>
         </div>
       </div>
 
       <div class="controls-grid">
         <label class="control-field locale-field">
-          <span class="control-label" data-i18n="languageRegion">Language / region</span>
+          <span class="control-label" data-i18n="languageRegion"></span>
           <span class="select-wrap">
             <select id="locale" name="locale">
-              <option value="en-US" data-i18n="localeEnUs">English (USA)</option>
-              <option value="de-DE" data-i18n="localeDeDe">German (Germany)</option>
             </select>
           </span>
         </label>
 
         <label class="control-field seed-field">
-          <span class="control-label" data-i18n="seed">Seed</span>
+          <span class="control-label" data-i18n="seed"></span>
           <span class="seed-input-wrap">
             <input id="seed" name="seed" type="text" value="123456789" inputmode="numeric" autocomplete="off" spellcheck="false" aria-describedby="seed-help">
-            <button id="random-seed" type="button" class="icon-button" title="Generate a random 48-bit seed" aria-label="Generate a random 48-bit seed" data-i18n-title="randomSeed" data-i18n-aria="randomSeed">
+            <button id="random-seed" type="button" class="icon-button" data-i18n-title="randomSeed" data-i18n-aria="randomSeed">
               <span aria-hidden="true">↻</span>
             </button>
           </span>
-          <small id="seed-help" data-i18n="seedHelp">Custom seeds support up to 64-bit integers.</small>
+          <small id="seed-help" data-i18n="seedHelp"></small>
         </label>
 
         <label class="control-field range-field">
-          <span class="control-label"><span data-i18n="averageLikes">Average likes</span> <output id="likes-value" for="likes">3.0</output></span>
-          <input id="likes" name="likes" type="range" min="0" max="10" step="0.1" value="3" aria-label="Average likes per movie" data-i18n-aria="averageLikesPerMovie">
+          <span class="control-label"><span data-i18n="averageLikes"></span> <output id="likes-value" for="likes">3.0</output></span>
+          <input id="likes" name="likes" type="range" min="0" max="10" step="0.1" value="3" data-i18n-aria="averageLikesPerMovie">
           <span class="range-scale" aria-hidden="true"><span>0</span><span>5</span><span>10</span></span>
         </label>
 
         <label class="control-field range-field">
-          <span class="control-label"><span data-i18n="averageReviews">Average reviews</span> <output id="reviews-value" for="reviews">3.0</output></span>
-          <input id="reviews" name="reviews" type="range" min="0" max="10" step="0.1" value="3" aria-label="Average reviews per movie" data-i18n-aria="averageReviewsPerMovie">
+          <span class="control-label"><span data-i18n="averageReviews"></span> <output id="reviews-value" for="reviews">3.0</output></span>
+          <input id="reviews" name="reviews" type="range" min="0" max="10" step="0.1" value="3" data-i18n-aria="averageReviewsPerMovie">
           <span class="range-scale" aria-hidden="true"><span>0</span><span>5</span><span>10</span></span>
         </label>
       </div>
     </section>
 
-    <section class="catalogue-section" aria-label="Movies" data-i18n-aria="movies">
+    <section class="catalogue-section" data-i18n-aria="movies">
       <div class="catalogue-heading">
-        <p id="result-status" class="result-status" role="status" aria-live="polite" data-i18n="preparingFirstReel">Preparing the first reel...</p>
+        <p id="result-status" class="result-status" role="status" aria-live="polite" data-i18n="preparingFirstReel"></p>
       </div>
 
       <div id="error-message" class="error-message" role="alert" hidden>
-        <strong data-i18n="loadError">Could not load the catalogue.</strong>
+        <strong data-i18n="loadError"></strong>
         <span id="error-copy"></span>
-        <button id="retry-button" class="text-button" type="button" data-i18n="tryAgain">Try again</button>
+        <button id="retry-button" class="text-button" type="button" data-i18n="tryAgain"></button>
       </div>
 
-      <section id="table-view" class="display-view" aria-label="Movie table" data-i18n-aria="movieTable">
+      <section id="table-view" class="display-view" data-i18n-aria="movieTable">
         <div class="table-shell">
           <table>
             <thead>
               <tr>
-                <th scope="col" data-i18n="sequence">#</th>
-                <th scope="col" data-i18n="title">Title</th>
-                <th scope="col" data-i18n="cast">Cast</th>
-                <th scope="col" data-i18n="year">Year</th>
-                <th scope="col" data-i18n="genre">Genre</th>
+                <th scope="col" data-i18n="sequence"></th>
+                <th scope="col" data-i18n="title"></th>
+                <th scope="col" data-i18n="cast"></th>
+                <th scope="col" data-i18n="year"></th>
+                <th scope="col" data-i18n="genre"></th>
               </tr>
             </thead>
             <tbody id="movie-table-body"></tbody>
           </table>
         </div>
-        <nav class="pagination" aria-label="Table pagination" data-i18n-aria="tablePagination">
-          <button id="previous-page" type="button" class="page-button">← <span data-i18n="previous">Previous</span></button>
-          <p id="page-label" data-i18n="page">Page {page}</p>
-          <button id="next-page" type="button" class="page-button"><span data-i18n="next">Next</span> →</button>
+        <nav class="pagination" data-i18n-aria="tablePagination">
+          <button id="previous-page" type="button" class="page-button">← <span data-i18n="previous"></span></button>
+          <p id="page-label" data-i18n="page"></p>
+          <button id="next-page" type="button" class="page-button"><span data-i18n="next"></span> →</button>
         </nav>
       </section>
 
-      <section id="gallery-view" class="display-view" aria-label="Movie gallery" data-i18n-aria="movieGallery" hidden>
+      <section id="gallery-view" class="display-view" data-i18n-aria="movieGallery" hidden>
         <div id="movie-gallery" class="movie-gallery"></div>
         <div id="gallery-sentinel" class="gallery-sentinel" aria-live="polite">
-          <span class="loading-dot"></span><span data-i18n="loadingAnotherReel">Loading another reel</span>
+          <span class="loading-dot"></span><span data-i18n="loadingAnotherReel"></span>
         </div>
       </section>
     </section>
@@ -114,6 +104,6 @@
     <tr class="skeleton-row"><td><span></span></td><td><span></span></td><td><span></span></td><td><span></span></td><td><span></span></td></tr>
   </template>
 
-  <script src="/app.js?v=9" defer></script>
+  <script src="/app.js?v=12" defer></script>
 </body>
 </html>
